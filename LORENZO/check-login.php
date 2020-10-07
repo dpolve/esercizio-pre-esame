@@ -22,6 +22,7 @@ $records= $db->prepare(
         //login corretto
         $_SESSION['login']=true;
         $_SESSION['ute_id']= $records[0]['ute_id'];
-        header("Location: argomenti.php");
+        $_SESSION['ute_ruolo'] = $records[0]['ute_ruolo'];
+        header("Location: menu.php");
     }
 ?>
