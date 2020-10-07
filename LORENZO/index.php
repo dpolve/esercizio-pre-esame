@@ -9,10 +9,16 @@
 
 <body>
     <?php include("./conf.php"); ?>
-
     <div class="container-fluid">
+        <strong>
+            <?php if (array_key_exists('msg', $_GET))
+                echo $_GET['msg'];
+            ?>
+        </strong>
+    
+    
         <form method="POST" action="check-login.php" style="width: 25%">
-            <div class="form-group" >
+            <div class="form-group">
                 <label for="utenteLogin">Nome Utente</label>
                 <input name="utenteLogin" type="text" class="form-control" id="utenteLogin">
             </div>
