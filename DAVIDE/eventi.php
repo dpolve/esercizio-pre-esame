@@ -15,7 +15,7 @@
 <body>
     <div class="container-fluid">
         <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-secondary">Homepage</button>
+        <button type="button" class="btn btn-secondary" onClick="history.go(-1)">HomePage</button>
             <button type="button" class="btn btn-secondary" onClick="history.go(-1)">Indietro</button>
             <a href="#" class="btn btn-primary btn-outline-danger">Esci (LogOut)</a>
         </div>
