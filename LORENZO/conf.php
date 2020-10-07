@@ -10,4 +10,16 @@ function data_ordinata($data){
     return $d[2]."/".$d[1]."/".$d[0];
 }
 
+try {
+    $hostname = "localhost";
+    $dbname = "eventi2020";
+    $user = "root";
+    $pass = "";
+    $dsn = "mysql:dbname=" . $dbname . ";host=" . $hostname;
+    $db = new PDO($dsn, $user, $pass);
+} catch (PDOException $e) {
+    echo "Errore: " . $e->getMessage();
+    die();
+}
+
 ?>
