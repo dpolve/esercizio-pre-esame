@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <div class="container-fluid">
+    <div class="container-fluid d-flex justify-content-center">
         <br>
         <?php
         include("./conf.php");
@@ -32,7 +32,7 @@
         $records = $records->fetchAll(PDO::FETCH_ASSOC);
         /*    3. */
         ?>
-        <table class="table" style="width: 0%">
+        <table class="table" style="width: 25%; text-align: center">
             <thead class="thead-dark">
                 <tr>
                     <th scope="row">Argomenti</th>

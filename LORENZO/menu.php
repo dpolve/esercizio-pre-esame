@@ -9,4 +9,8 @@
     }else{
         echo "Area riservata ADMIN";
     }
+
+//     SELECT eventi.eve_nome,COUNT(*) FROM statistiche 
+// inner join eventi on eventi.eve_id = statistiche.sta_eve_id 
+// group by statistiche.sta_eve_id
 ?>

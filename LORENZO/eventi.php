@@ -10,14 +10,22 @@
 
 <body>
 
+
+
     <?php
     include("./conf.php");
 
     $id = $_REQUEST["id_argomento"];
     $nome = $_REQUEST["nome_argomento"];
     ?>
-    <div class="container-fluid">
-        <p><a href="argomenti.php">Torna Indietro</a></p>
+    <div class="container-fluid ">
+        
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-secondary" onClick="history.go(-1)">HomePage</button>
+            <button type="button" class="btn btn-secondary" onClick="history.go(-1)">Indietro</button>
+            <a href="#" class="btn btn-primary btn-danger">Esci (LogOut)</a>
+        </div>
+        <br><br>
         <h5>Eventi presenti per l'argomento: <?php echo $nome ?> </h5>
         <br>
         <?php
@@ -53,11 +61,11 @@
                     $eve_data_inizio = $record["eve_data_inizio"];
                     $eve_id_arg = $record["eve_arg_id"];
 
-                    echo 
-                    '<tr>
+                    echo
+                        '<tr>
                         <td>' . $eve_nome . '</td>
                         <td>' . data_ordinata($eve_data_inizio) . '</td>
-                        <td><a href="dettaglio.php?id_evento=' . $eve_id . '&nome_evento='.$eve_nome.'&id_argomento='.$eve_id_arg.'"> Dettagli </a></td>
+                        <td><a href="dettaglio.php?id_evento=' . $eve_id . '&nome_evento=' . $eve_nome . '&id_argomento=' . $eve_id_arg . '"> Dettagli </a></td>
                     </tr>';
                 }
                 ?>

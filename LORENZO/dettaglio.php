@@ -18,7 +18,12 @@
     $eve_arg_id = $_REQUEST["id_argomento"];
     ?>
     <div class="container-fluid">
-        <p><a href="javascript:history.go(-1)">Torna indietro</a> | <a href="argomenti.php">Pagina Iniziale</a></p>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-secondary" onClick="history.go(-2)">HomePage</button>
+            <button type="button" class="btn btn-secondary" onClick="history.go(-1)">Indietro</button>
+            <a href="#" class="btn btn-primary btn-danger">Esci (LogOut)</a>
+        </div>
+        <br><br>
         <h5>Evento <?php echo $eve_nome ?> </h5>
         <br>
         <?php
