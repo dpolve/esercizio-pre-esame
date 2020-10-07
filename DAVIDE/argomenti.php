@@ -13,14 +13,14 @@
 
 <body>
     <div class="container-fluid">
-    <div class="btn-group" role="group" aria-label="Basic example">
-  <button type="button" class="btn btn-secondary">Menu</button>
-  <button type="button" class="btn btn-secondary">Profilo</button>
-  <button type="button" class="btn btn-secondary">Disconnettiti</button>
-</div>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-secondary">Menu</button>
+            <button type="button" class="btn btn-secondary">Profilo</button>
+            <a href="#" class="btn btn-primary btn-outline-danger">Esci (LogOut)</a>
+        </div>
         <h1>Quale argomento ti interessa?</h1>
         <?php
-        include ("./conf.php");
+        include("./conf.php");
         // 2. lettura records di tabella argomenti
         $argomenti = " SELECT arg_id,arg_argomento FROM argomenti ORDER BY arg_argomento ASC ";
         $st_argomenti = $conn->prepare($argomenti);
@@ -42,8 +42,8 @@
                 foreach ($records as $record) {
                     $arg_id = $record["arg_id"];
                     $arg_a = $record["arg_argomento"];
-                    echo '<tr><td><a href="' . $link_id . $arg_id . $link_argomento . $arg_a.'">'
-                     . $arg_a . '</a></td></tr>';
+                    echo '<tr><td><a href="' . $link_id . $arg_id . $link_argomento . $arg_a . '">'
+                        . $arg_a . '</a></td></tr>';
                 }
                 ?>
             </tbody>
