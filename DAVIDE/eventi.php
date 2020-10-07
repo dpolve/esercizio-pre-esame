@@ -36,10 +36,11 @@
 
         // 3. creare tabella con bootsrap per l'impaginazione
         ?>
-        <table class="table table-striped">
+        <table class="table table-striped" style="width: 50%">
             <thead>
                 <tr>
                     <th scope="col">Tutti gli eventi dell'argomento scelto: <?php echo $argomento_nome ?></th>
+                    <th>Data Evento</th>
                 </tr>
             </thead>
             <tbody>

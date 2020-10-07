@@ -40,7 +40,10 @@
         $eve_dove = $records[0]["eve_dove"];
         $eve_image = $records[0]["eve_image"];
         ?>
-        <h1>Tutti i dettagli dell'evento scelto: <?php echo "<br>" . $eve_nome; ?></h1>
+        <h5>Tutti i dettagli dell'evento scelto: </h5>
+        <br>
+        <h3><?php echo $eve_nome ?></h3>
+        
 
         <div class="bd-example">
             <div class="card" style="width: 18rem;">

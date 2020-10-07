@@ -24,6 +24,7 @@
                     <input type="text" name="password" class="form-control" placeholder="Inserisci la password">
                 </div>
             </div>
+            <br>
             <p> 
                 <button type="submit" class="btn btn-primary">Accedi</button>
             </p>
