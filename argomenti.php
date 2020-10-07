@@ -13,6 +13,11 @@
 
 <body>
     <div class="container-fluid">
+    <div class="btn-group" role="group" aria-label="Basic example">
+  <button type="button" class="btn btn-secondary">Menu</button>
+  <button type="button" class="btn btn-secondary">Profilo</button>
+  <button type="button" class="btn btn-secondary">Disconnettiti</button>
+</div>
         <h1>Quale argomento ti interessa?</h1>
         <?php
         include ("./conf.php");
