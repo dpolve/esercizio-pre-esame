@@ -11,33 +11,39 @@
 <body>
 
     <?php
+    session_start();
+    if(!$_SESSION['login']){
+        header("Location: index.php?msg=Per poter vedere i contenuti bisogna effettuare l'accesso");
+    }
     include("./conf.php");
 
     $eve_id = $_REQUEST["id_evento"];
     $eve_nome = $_REQUEST["nome_evento"];
     $eve_arg_id = $_REQUEST["id_argomento"];
+    
     ?>
     <div class="container-fluid">
-        <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-secondary" onClick="history.go(-2)">HomePage</button>
-            <button type="button" class="btn btn-secondary" onClick="history.go(-1)">Indietro</button>
-            <a href="#" class="btn btn-primary btn-danger">Esci (LogOut)</a>
+        <?php echo 'Utente collegato: <strong>'. $_SESSION['ute_nome'].'<br>';?>
+        <div class="btn-group" role="group" aria-label="Basic example" style="width: 50%">
+            <button type="button" class="btn btn-primary" onClick="history.go(-2)">HomePage</button>
+            <button type="button" class="btn btn-primary" onClick="history.go(-1)">Back</button>
+            <a href="logout.php" class="btn btn-primary btn-danger">LogOut</a>
         </div>
         <br><br>
-        <h5>Evento <?php echo $eve_nome ?> </h5>
+        <h5>Evento <strong><?php echo $eve_nome ?></strong></h5>
         <br>
         <?php
-        try {
-            $hostname = "localhost";
-            $dbname = "eventi2020";
-            $user = "root";
-            $pass = "";
-            $dsn = "mysql:dbname=" . $dbname . ";host=" . $hostname;
-            $db = new PDO($dsn, $user, $pass);
-        } catch (PDOException $e) {
-            echo "Errore: " . $e->getMessage();
-            die();
-        }
+        // try {
+        //     $hostname = "localhost";
+        //     $dbname = "eventi2020";
+        //     $user = "root";
+        //     $pass = "";
+        //     $dsn = "mysql:dbname=" . $dbname . ";host=" . $hostname;
+        //     $db = new PDO($dsn, $user, $pass);
+        // } catch (PDOException $e) {
+        //     echo "Errore: " . $e->getMessage();
+        //     die();
+        // }
         $records = $db->prepare(
             "SELECT *
             FROM eventi
@@ -53,7 +59,7 @@
             // var_dump($records);
             ?>
         </pre> -->
-        <table class="table" style="width: 0%">
+        <table class="table table-bordered">
             <thead class="thead-dark">
                 <tr>
                     <th scope="row">Nome Evento</th>
