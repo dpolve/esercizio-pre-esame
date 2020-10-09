@@ -78,13 +78,13 @@
                     </thead>
                     <tbody>
                         <?php
-                        foreach ($records as $record) {
-                            $eve_nome = $record["eve_nome"];
-                            $eve_id = $record["eve_id"];
-                            $eve_data_inizio = $record["eve_data_inizio"];
-                            $eve_data_fine = $record["eve_data_fine"];
-                            $eve_luogo = $record["eve_dove"];
-                            $eve_desc = $record["eve_descriz"];
+                        
+                            $eve_nome = $records[0]["eve_nome"];
+                            $eve_id = $records[0]["eve_id"];
+                            $eve_data_inizio = $records[0]["eve_data_inizio"];
+                            $eve_data_fine = $records[0]["eve_data_fine"];
+                            $eve_luogo = $records[0]["eve_dove"];
+                            $eve_desc = $records[0]["eve_descriz"];
                             echo
                                 '<tr>
                             <td>' . $eve_nome . '</td>
@@ -93,7 +93,11 @@
                             <td>' . $eve_luogo . '</td>
                             <td>' . $eve_desc . '</td>
                     </tr>';
-                        }
+                        
+
+                        $conteggio = $db->prepare('INSERT INTO statistiche (sta_eve_id) VALUE (:evento_id)');
+                        $conteggio->bindParam("evento_id", $eve_id);
+                        $conteggio->execute();
                         ?>
                     </tbody>
                 </table>
