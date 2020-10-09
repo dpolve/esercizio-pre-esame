@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <div class="container-fluid justify-content-start" style="text-align: center">
+    <div class="container-fluid justify-content-center" style="text-align: center">
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 <?php
@@ -26,7 +26,7 @@
         <br>
         <div class="row">
             <div class="col-md-6 offset-md-3">
-            <a href="logout.php" class="btn btn-primary btn-danger">LogOut</a>
+            <a href="logout.php" class="btn btn-primary btn-danger">Logout</a>
         </div>
             </div>
                 <br>';

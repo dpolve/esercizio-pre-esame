@@ -2,16 +2,15 @@
     session_start();
     include("./conf.php");
 
-    if( ! $_SESSION['login']){
+    if(!$_SESSION['login']){
         header("Location: index.php?msg=Autenticazione necessaria");
     }
     else if($_SESSION['ute_ruolo'] == "users"){
         header("Location: argomenti.php");
     }else{
         echo '<div class="container-fluid">
-        <h5>
-            <strong>Area riservata ADMIN</strong>
-            <h5>
+            <strong><h1>Area riservata ADMIN</h1></strong>
+            
             <br>
             <strong>Totale accessi eventi:</strong>
             <br>';

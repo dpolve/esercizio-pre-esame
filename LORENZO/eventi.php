@@ -22,7 +22,7 @@
     $id = $_REQUEST["id_argomento"];
     $nome = $_REQUEST["nome_argomento"];
     ?>
-    <div class="container-fluid justify-content-start" style="text-align: center">
+    <div class="container-fluid justify-content-center" style="text-align: center">
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 <?php echo '<br>Utente collegato: <strong>' . $_SESSION['ute_nome'] . '<br>'; ?>
@@ -33,7 +33,7 @@
             <div class="col-md-6 offset-md-3">
                 <div class="btn-group" role="group" aria-label="Basic example">
                     <button type="button" class="btn btn-primary" onClick="history.go(-1)">Indietro</button>
-                    <a href="logout.php" class="btn btn-primary btn-danger">LogOut</a>
+                    <a href="logout.php" class="btn btn-primary btn-danger">Logout</a>
                 </div>
             </div>
         </div>

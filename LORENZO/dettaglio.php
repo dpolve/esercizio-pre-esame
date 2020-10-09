@@ -12,7 +12,7 @@
 
     <?php
     session_start();
-    if(!$_SESSION['login']){
+    if (!$_SESSION['login']) {
         header("Location: index.php?msg=Per poter vedere i contenuti bisogna effettuare l'accesso");
     }
     include("./conf.php");
@@ -20,16 +20,26 @@
     $eve_id = $_REQUEST["id_evento"];
     $eve_nome = $_REQUEST["nome_evento"];
     $eve_arg_id = $_REQUEST["id_argomento"];
-    
+
     ?>
-    <div class="container-fluid">
-        <?php echo 'Utente collegato: <strong>'. $_SESSION['ute_nome'].'<br>';?>
-        <div class="btn-group" role="group" aria-label="Basic example" style="width: 50%">
-            <button type="button" class="btn btn-primary" onClick="history.go(-2)">HomePage</button>
-            <button type="button" class="btn btn-primary" onClick="history.go(-1)">Back</button>
-            <a href="logout.php" class="btn btn-primary btn-danger">LogOut</a>
+    <div class="container-fluid justify-content-center" style="text-align: center">
+        <br>
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <?php echo 'Utente collegato: <strong>' . $_SESSION['ute_nome']; ?>
+            </div>
         </div>
-        <br><br>
+        <br>
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-primary" onClick="history.go(-2)">HomePage</button>
+                    <button type="button" class="btn btn-primary" onClick="history.go(-1)">Indietro</button>
+                    <a href="logout.php" class="btn btn-primary btn-danger">Logout</a>
+                </div>
+            </div>
+        </div>
+        <br>
         <h5>Evento <strong><?php echo $eve_nome ?></strong></h5>
         <br>
         <?php
@@ -54,42 +64,41 @@
         $records->execute();
         $records = $records->fetchAll(PDO::FETCH_ASSOC);
         ?>
-        <!-- <pre>
-            <?php
-            // var_dump($records);
-            ?>
-        </pre> -->
-        <table class="table table-bordered">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="row">Nome Evento</th>
-                    <th scope="row">Data Inizio Evento</th>
-                    <th scope="row">Data Fine Evento</th>
-                    <th scope="row">Luogo</th>
-                    <th scope="row">Breve Descrizione</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                foreach ($records as $record) {
-                    $eve_nome = $record["eve_nome"];
-                    $eve_id = $record["eve_id"];
-                    $eve_data_inizio = $record["eve_data_inizio"];
-                    $eve_data_fine = $record["eve_data_fine"];
-                    $eve_luogo = $record["eve_dove"];
-                    $eve_desc = $record["eve_descriz"];
-                    echo
-                        '<tr>
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="row">Nome Evento</th>
+                            <th scope="row">Data Inizio Evento</th>
+                            <th scope="row">Data Fine Evento</th>
+                            <th scope="row">Luogo</th>
+                            <th scope="row">Breve Descrizione</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        foreach ($records as $record) {
+                            $eve_nome = $record["eve_nome"];
+                            $eve_id = $record["eve_id"];
+                            $eve_data_inizio = $record["eve_data_inizio"];
+                            $eve_data_fine = $record["eve_data_fine"];
+                            $eve_luogo = $record["eve_dove"];
+                            $eve_desc = $record["eve_descriz"];
+                            echo
+                                '<tr>
                             <td>' . $eve_nome . '</td>
                             <td>' . data_ordinata($eve_data_inizio) . '</td>
                             <td>' . data_ordinata($eve_data_fine) . '</td>
                             <td>' . $eve_luogo . '</td>
                             <td>' . $eve_desc . '</td>
                     </tr>';
-                }
-                ?>
-            </tbody>
-        </table>
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </body>
 
