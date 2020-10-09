@@ -8,11 +8,11 @@
 </head>
 
 <body>
-    <?php include("./conf.php") ?>
-    <?php if (array_key_exists('msg', $_GET))
-        echo "<div><strong>" . $_GET['msg'] . "</strong></div>";
-    ?>
     <div class="container-fluid">
+        <?php include("./conf.php") ?>
+        <?php if (array_key_exists('msg', $_GET))
+            echo "<div><strong>" . $_GET['msg'] . "</strong></div>";
+        ?>
         <h1>Applicazione Eventi2020</h1>
 
         <form action="check-login.php" method="POST">
@@ -25,7 +25,7 @@
                 </div>
             </div>
             <br>
-            <p> 
+            <p>
                 <button type="submit" class="btn btn-primary">Accedi</button>
             </p>
         </form>
