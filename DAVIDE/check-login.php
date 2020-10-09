@@ -17,5 +17,6 @@ if (count($records) == 0){
 } else {
     $_SESSION['login']=True;
     $_SESSION['ute_id']=$records[0]['ute_id'];
-    header("Location: argomenti.php");
+    $_SESSION['ute_ruolo']=$records[0]['ute_ruolo'];
+    header("location: menu.php?freq=T");
 }

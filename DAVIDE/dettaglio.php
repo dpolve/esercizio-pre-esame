@@ -32,6 +32,18 @@
         $st_dettaglio->bindParam(":id_eve", $id_eve);
         $st_dettaglio->execute();
         $records = $st_dettaglio->fetchAll(PDO::FETCH_ASSOC);
+        // 2.1 Aggiornamento visita nella tab.statistiche
+        $today = date("Y-m-d");
+        $stat = "   INSERT INTO statistiche (sta_eve_id,sta_data)
+                    VALUES (:id_eve, '$today'); ";
+        $st_stat = $conn->prepare($stat);
+        $st_stat->bindParam(":id_eve", $id_eve);
+        $st_stat->execute();
+        /*
+        $stat = "   SELECT * FROM statistiche WHERE sta_data = '$today' ";
+        $stats = $st_stat->fetchAll(PDO::FETCH_ASSOC);
+        ?><pre><?php var_dump($stats);die();?></pre><?php
+        */
         // 3. creare tabella con bootsrap per l'impaginazione
         $eve_nome = $records[0]["eve_nome"];
         $eve_descriz = $records[0]["eve_descriz"];
@@ -43,7 +55,7 @@
         <h5>Tutti i dettagli dell'evento scelto: </h5>
         <br>
         <h3><?php echo $eve_nome ?></h3>
-        
+
 
         <div class="bd-example">
             <div class="card" style="width: 18rem;">
