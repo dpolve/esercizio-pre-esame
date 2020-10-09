@@ -8,7 +8,9 @@
 </head>
 
 <body>
-    <?php include("./conf.php"); ?>
+    <?php include("./conf.php"); 
+    header_remove("Location");
+    ?>
     <div class="container-fluid">
         <strong>
             <?php if (array_key_exists('msg', $_GET))

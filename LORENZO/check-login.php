@@ -18,11 +18,13 @@ $records= $db->prepare(
         //login errato
         $_SESSION['login']=false;
         header("Location: index.php?msg=Utente o password errati");
+        
     } else {
         //login corretto
         $_SESSION['login']=true;
         $_SESSION['ute_id']= $records[0]['ute_id'];
         $_SESSION['ute_ruolo'] = $records[0]['ute_ruolo'];
+        $_SESSION['ute_nome'] = $records[0]['ute_ruolo'];
         header("Location: menu.php");
     }
 ?>

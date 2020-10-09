@@ -9,48 +9,69 @@
 </head>
 
 <body>
-    <div class="container-fluid d-flex justify-content-center">
-        <br>
-        <?php
-        include("./conf.php");
-
-        /*  1. connessione al DB eventi2020 */
-        try {
-            $hostname = "localhost";
-            $dbname = "eventi2020";
-            $user = "root";
-            $pass = "";
-            $dsn = "mysql:dbname=" . $dbname . ";host=" . $hostname;
-            $db = new PDO($dsn, $user, $pass);
-        } catch (PDOException $e) {
-            echo "Errore: " . $e->getMessage();
-            die();
-        }
-        /*   2. lettura records tabella argomenti */
-        $records = $db->prepare("SELECT arg_id, arg_argomento FROM argomenti ORDER BY arg_argomento ASC");
-        $records->execute();
-        $records = $records->fetchAll(PDO::FETCH_ASSOC);
-        /*    3. */
-        ?>
-        <table class="table" style="width: 25%; text-align: center">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="row">Argomenti</th>
-                </tr>
-            </thead>
-            <tbody>
+    <div class="container-fluid justify-content-start" style="text-align: center">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
                 <?php
-                foreach ($records as $record) {
-                    $arg_id = $record["arg_id"];
-                    $arg_a = $record["arg_argomento"];
-
-                    echo '<tr><td><a href="eventi.php?id_argomento=' . $arg_id . '&nome_argomento=' . $arg_a . '">' . $arg_a . '</a></td></tr>';
+                session_start();
+                if(!$_SESSION['login']){
+                    header("Location: index.php?msg=Per poter visualizzare i contenuti bisogna effettuare l'accesso");
                 }
-                ?>
-            </tbody>
-        </table>
 
-    </div>
+                
+                echo'<br>Utente collegato:
+                        <strong>' . $_SESSION['ute_nome'] . '</strong>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+            <a href="logout.php" class="btn btn-primary btn-danger">LogOut</a>
+        </div>
+            </div>
+                <br>';
+                include("./conf.php");
+
+                /*  1. connessione al DB eventi2020 */
+                // try {
+                //     $hostname = "localhost";
+                //     $dbname = "eventi2020";
+                //     $user = "root";
+                //     $pass = "";
+                //     $dsn = "mysql:dbname=" . $dbname . ";host=" . $hostname;
+                //     $db = new PDO($dsn, $user, $pass);
+                // } catch (PDOException $e) {
+                //     echo "Errore: " . $e->getMessage();
+                //     die();
+                // }
+                /*   2. lettura records tabella argomenti */
+                $records = $db->prepare("SELECT arg_id, arg_argomento FROM argomenti ORDER BY arg_argomento ASC");
+                $records->execute();
+                $records = $records->fetchAll(PDO::FETCH_ASSOC);
+                /*    3. */
+                ?>
+                <div class="row">
+                    <div class="col-md-2 offset-md-5">
+                        <table class="table table-bordered">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="row">Argomenti</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                foreach ($records as $record) {
+                                    $arg_id = $record["arg_id"];
+                                    $arg_a = $record["arg_argomento"];
+
+                                    echo '<tr><td><a href="eventi.php?id_argomento=' . $arg_id . '&nome_argomento=' . $arg_a . '">' . $arg_a . '</a></td></tr>';
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
 </body>
 
