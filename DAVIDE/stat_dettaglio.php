@@ -1,67 +1,165 @@
-<?php include("./conf.php") ?>
-<!doctype html>
-<html lang="en">
+<?php
+session_start();
 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Statistiche Eventi</title>
-</head>
+if (!$_SESSION['login']) {
+    header("Location: index.php?msg=Autenticazione necessaria");
+} else if ($_SESSION['ute_ruolo'] == "users") {
+    header("Location: argomenti.php");
+} else {
+    echo "Area riservata ADMIN";
+?>
 
-<body>
-    <div class="container-fluid">
-        <div class="btn-group" role="group" aria-label="Basic example">
-        <button type="button" class="btn btn-secondary" onClick="history.go(-1)">HomePage</button>
-            <button type="button" class="btn btn-secondary" onClick="history.go(-1)">Indietro</button>
-            <a href="#" class="btn btn-primary btn-outline-danger">Esci (LogOut)</a>
-        </div>
+    <!-- inizio html pagina riservata -->
+    <?php include("./conf.php") ?>
+    <html>
 
-        <h1>Quale evento ti interessa ?</h1>
-        <?php
-        // 1. lettura valori passati dalla pagina precedente
-        $id_arg = $_REQUEST["id_argomento"];
-        $argomento_nome = $_REQUEST["argomento_nome"];
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Area Riservata</title>
+    </head>
 
-        // 2. lettura records di tabella eventi con riferimento al id_argomento 
-        //      della pagina precedente
-        $eventi = " SELECT eve_id,eve_arg_id,eve_nome,eve_data_inizio 
-                    FROM eventi 
-                    WHERE eve_arg_id = :id_arg 
-                    ORDER BY eve_data_inizio ASC ";
-        $st_eventi = $conn->prepare($eventi);
-        $st_eventi->bindParam(":id_arg", $id_arg);
-        $st_eventi->execute();
-        $records = $st_eventi->fetchAll(PDO::FETCH_ASSOC);
+    <body>
+        <div class="container-fluid">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-secondary">Menu</button>
+                <button type="button" class="btn btn-secondary">Gestione Utenti</button>
+                <a href="#" class="btn btn-primary btn-outline-danger">Esci (LogOut)</a>
+            </div>
+            <h1>Statistiche <a href="stat_dettaglio.php?freq=T"> Totali</a>,<a href="stat_dettaglio.php?freq=I"> Ieri</a>,<a href="stat_dettaglio.php?freq=O"> Oggi </a>per Eventi</h1>
+            <?php
+            $today = date("Y-m-d");
+            $day_before = date("Y-m-d", strtotime($today . ' -1 day'));
 
-        // 3. creare tabella con bootsrap per l'impaginazione
-        ?>
-        <table class="table table-striped" style="width: 50%">
-            <thead>
-                <tr>
-                    <th scope="col">Tutti gli eventi dell'argomento scelto: <?php echo $argomento_nome ?></th>
-                    <th>Data Evento</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                $link = "dettaglio.php?id_evento=";
-                $link_evento = "&evento_nome=";
-                foreach ($records as $record) {
-                    $eve_id = $record["eve_id"];
-                    $eve_e = $record["eve_nome"];
-                    $eve_data_inizio = $record["eve_data_inizio"];
-                    echo '<tr>
-                    <td><a href="' . $link . $eve_id . $link_evento . $eve_e . '">'
-                        . $eve_e . '</a></td>
-                        <td>'
-                        . date_db2user($eve_data_inizio) . '</td>
+
+            $freq = $_REQUEST["freq"];
+            if ($_REQUEST["freq"] == "T") {
+                // 2. lettura records di tabella statistiche totali per argomento
+                $stat_sum =
+                    " SELECT argomenti.arg_argomento , eventi.eve_nome , statistiche.sta_data , COUNT(*) as sta_tot
+                    FROM statistiche 
+                    INNER JOIN eventi on eventi.eve_id = statistiche.sta_eve_id
+                    INNER JOIN argomenti ON eventi.eve_arg_id = argomenti.arg_id 
+                    GROUP BY eventi.eve_nome  ";
+                $st_stat_sum = $conn->prepare($stat_sum);
+                $st_stat_sum->execute();
+                $sta_sum = $st_stat_sum->fetchAll(PDO::FETCH_ASSOC);
+            ?>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Statistiche di Eventi</th>
+                            <th scope="col">Visite Totali</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+
+                        foreach ($sta_sum as $record) {
+                            $arg_id = $record["arg_id"];
+                            $arg_a = $record["arg_argomento"];
+                            $sta_tot = $record["sta_tot"];
+                            echo '
+                        <tr>
+                           <td>
+                                ' . $arg_a . '</a>
+                            </td>
+                            <td>
+                            ' . $sta_tot . '
+                            </td>
                         </tr>';
-                }
-                ?>
-            </tbody>
-        </table>
-    </div>
-</body>
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            <?php
+                exit;
+            } else if ($_REQUEST["freq"] == "I") {
+                // 2.1 lettura records di tabella statistiche totali per argomento
+                $stat_ier =
+                    " SELECT argomenti.arg_id , argomenti.arg_argomento , COUNT(*) as sta_tot
+                    FROM statistiche 
+                    INNER JOIN eventi on eventi.eve_id = statistiche.sta_eve_id
+                    INNER JOIN argomenti ON eventi.eve_arg_id = argomenti.arg_id
+                    WHERE statistiche.sta_data = '$day_before'
+                    GROUP BY argomenti.arg_argomento ";
+                $st_stat_ier = $conn->prepare($stat_ier);
+                $st_stat_ier->execute();
+                $sta_ier = $st_stat_ier->fetchAll(PDO::FETCH_ASSOC);
 
-</html>
+            ?>
+                <!-- <pre><?php var_dump($sta_ier) ?></pre> -->
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Statistiche di Argomenti</th>
+                            <th scope="col">Visite di Ieri: <?php echo $day_before ?></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $link_id = "stat_dettaglio.php?id_argomento=";
+                        $link_argomento = "&argomento_nome=";
+
+                        foreach ($sta_ier as $record) {
+                            $arg_id = $record["arg_id"];
+                            $arg_a = $record["arg_argomento"];
+                            $sta_tot = $record["sta_tot"];
+                            echo '
+                            <tr>
+                               <td>
+                                    <a href="' . $link_id . $arg_id . $link_argomento . $arg_a . '">' . $arg_a . '</a>
+                                </td>
+                                <td>
+                                ' . $sta_tot . '
+                                </td>
+                            </tr>';
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            <?php
+                exit;
+            } else {
+                echo "Oggi";
+                exit;
+            }
+            ?>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Statistiche di Argomenti</th>
+                        <th scope="col">Visite totali</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $link_id = "stat_dettaglio.php?id_argomento=";
+                    $link_argomento = "&argomento_nome=";
+
+                    foreach ($sta_sum as $record) {
+                        $arg_id = $record["arg_id"];
+                        $arg_a = $record["arg_argomento"];
+                        $sta_tot = $record["sta_tot"];
+                        echo '
+                        <tr>
+                           <td>
+                                <a href="' . $link_id . $arg_id . $link_argomento . $arg_a . '">' . $arg_a . '</a>
+                            </td>
+                            <td>
+                            ' . $sta_tot . '
+                            </td>
+                        </tr>';
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </div>
+    </body>
+
+    </html>
+
+<?php
+}
+?>

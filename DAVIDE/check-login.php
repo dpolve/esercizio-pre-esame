@@ -17,6 +17,7 @@ if (count($records) == 0){
 } else {
     $_SESSION['login']=True;
     $_SESSION['ute_id']=$records[0]['ute_id'];
+    $_SESSION['ute_nome']=$records[0]['ute_nome'];
     $_SESSION['ute_ruolo']=$records[0]['ute_ruolo'];
-    header("location: menu.php?freq=T");
+    header("location: menu.php?freq=T&argeve=A");
 }

@@ -17,12 +17,12 @@
                 echo $_GET['msg'];
             ?>
         </strong>
-        
+
         <div class="row">
             <div class="col-md-2 offset-md-5">
                 <form method="POST" action="check-login.php">
                     <div class="form-group">
-                    <br>
+                        <br>
                         <label for="utenteLogin">Nome Utente</label>
                         <input name="utenteLogin" type="text" class="form-control" id="utenteLogin">
                     </div>

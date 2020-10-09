@@ -13,10 +13,17 @@
         <div class="btn-group" role="group" aria-label="Basic example">
             <button type="button" class="btn btn-secondary">Menu</button>
             <button type="button" class="btn btn-secondary">Profilo</button>
-            <a href="#" class="btn btn-primary btn-outline-danger">Esci (LogOut)</a>
+            <a href="logout.php" class="btn btn-primary btn-outline-danger">Esci (LogOut)</a>
         </div>
         <h1>Quale argomento ti interessa?</h1>
         <?php
+        if(!$_SESSION['login']){
+            header("Location: index.php?msg=Per poter visualizzare i contenuti bisogna effettuare l'accesso");
+        }
+        
+        
+        echo'<br>Utente collegato:
+                <strong>' . $_SESSION['ute_nome'] . '</strong>';
         // 2. lettura records di tabella argomenti
         $argomenti = " SELECT arg_id,arg_argomento FROM argomenti ORDER BY arg_argomento ASC ";
         $st_argomenti = $conn->prepare($argomenti);
