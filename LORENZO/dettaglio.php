@@ -33,6 +33,11 @@
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 <div class="btn-group" role="group" aria-label="Basic example">
+                <?php
+                    if($_SESSION['ute_ruolo'] == "admin"){
+                        echo '<a href="menu.php" class="btn btn-primary">Sezione Admin</a>';
+                    }
+                ?>
                     <button type="button" class="btn btn-primary" onClick="history.go(-2)">HomePage</button>
                     <button type="button" class="btn btn-primary" onClick="history.go(-1)">Indietro</button>
                     <a href="logout.php" class="btn btn-primary btn-danger">Logout</a>
@@ -40,7 +45,7 @@
             </div>
         </div>
         <br>
-        <h5>Evento selezionato: <strong><?php echo $eve_nome ?></strong></h5>
+        <h5>Evento selezionato: <br> <strong><?php echo $eve_nome ?></strong></h5>
         <br>
         <?php
         // try {
@@ -65,19 +70,20 @@
         ?>
         <div class="row">
             <div class="col-md-8 offset-md-2">
-                <table class="table table-bordered">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="row">Nome Evento</th>
-                            <th scope="row">Data Inizio Evento</th>
-                            <th scope="row">Data Fine Evento</th>
-                            <th scope="row">Luogo</th>
-                            <th scope="row">Breve Descrizione</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        
+                <div class="table-responsive-md">
+                    <table class="table table-bordered">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="row">Nome Evento</th>
+                                <th scope="row">Data Inizio Evento</th>
+                                <th scope="row">Data Fine Evento</th>
+                                <th scope="row">Luogo</th>
+                                <th scope="row">Breve Descrizione</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+
                             $eve_nome = $records[0]["eve_nome"];
                             $eve_id = $records[0]["eve_id"];
                             $eve_data_inizio = $records[0]["eve_data_inizio"];
@@ -93,15 +99,16 @@
                             <td>' . $eve_luogo . '</td>
                             <td>' . $eve_desc . '</td>
                     </tr>';
-                        
 
-                        $conteggio = $db->prepare('INSERT INTO statistiche (sta_eve_id) VALUE (:evento_id)');
-                        $conteggio->bindParam("evento_id", $eve_id);
-                        $conteggio->execute();
-                        ?>
-                    </tbody>
-                </table>
-                <img src="<?php echo $eve_img_url?>" class="img-fluid" alt="Responsive image">
+
+                            $conteggio = $db->prepare('INSERT INTO statistiche (sta_eve_id) VALUE (:evento_id)');
+                            $conteggio->bindParam("evento_id", $eve_id);
+                            $conteggio->execute();
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+                <img src="<?php echo $eve_img_url ?>" class="img-fluid" alt="Responsive image">
             </div>
         </div>
     </div>
