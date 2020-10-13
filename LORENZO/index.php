@@ -14,23 +14,24 @@
         <br>
         <strong>
             <?php if (array_key_exists('msg', $_GET))
-                echo $_GET['msg'];
+                echo $_GET['msg'] . '<br><br>';
             ?>
         </strong>
-        
+
         <div class="row">
-            <div class="col-md-2 offset-md-5">
+            <div class="col-md-6 offset-md-4">
                 <form method="POST" action="check-login.php">
-                    <div class="form-group">
-                    <br>
-                        <label for="utenteLogin">Nome Utente</label>
-                        <input name="utenteLogin" type="text" class="form-control" id="utenteLogin">
+                    <div class="form-group row">
+                        <label for="utenteLogin" class="col-sm-2">Nome Utente</label>
+                        <input name="utenteLogin" type="text" class="form-control col-sm-4" id="utenteLogin">
                     </div>
-                    <div class="form-group">
-                        <label for="passwordLogin">Password</label>
-                        <input name="passwordLogin" type="password" class="form-control" id="passwordLogin">
+                    <div class="form-group row">
+                        <label for="passwordLogin" class="col-sm-2">Password</label>
+                        <input name="passwordLogin" type="password" class="form-control col-sm-4" id="passwordLogin">
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <div class="form-group row">
+                        <button type="submit" class="btn btn-primary col-sm-2 offset-md-3">Submit</button>
+                    </div>
                 </form>
             </div>
         </div>

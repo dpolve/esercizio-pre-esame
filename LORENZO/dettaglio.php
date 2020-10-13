@@ -40,7 +40,7 @@
             </div>
         </div>
         <br>
-        <h5>Evento <strong><?php echo $eve_nome ?></strong></h5>
+        <h5>Evento selezionato: <strong><?php echo $eve_nome ?></strong></h5>
         <br>
         <?php
         // try {
@@ -57,8 +57,7 @@
         $records = $db->prepare(
             "SELECT *
             FROM eventi
-            WHERE eve_id = :id
-            ORDER BY eve_data_inizio ASC"
+            WHERE eve_id = :id"
         );
         $records->bindParam(":id", $eve_id);
         $records->execute();
@@ -85,6 +84,7 @@
                             $eve_data_fine = $records[0]["eve_data_fine"];
                             $eve_luogo = $records[0]["eve_dove"];
                             $eve_desc = $records[0]["eve_descriz"];
+                            $eve_img_url = $records[0]["eve_image"];
                             echo
                                 '<tr>
                             <td>' . $eve_nome . '</td>
@@ -101,6 +101,7 @@
                         ?>
                     </tbody>
                 </table>
+                <img src="<?php echo $eve_img_url?>" class="img-fluid" alt="Responsive image">
             </div>
         </div>
     </div>
