@@ -16,26 +16,28 @@
         header("Location: index.php?msg=Autenticazione necessaria");
     } else if ($_SESSION['ute_ruolo'] == "users") {
         header("Location: argomenti.php");
-    } else if($_SESSION['ute_ruolo'] == "admin"){
+    } else if ($_SESSION['ute_ruolo'] == "admin") {
 
     ?>
         <div class="container-fluid" style="text-align: center">
             <br>
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-1">
                     <a href="argomenti.php" class="btn btn-primary ">Vedi Pagina</a>
                 </div>
-                <div class="col-md-6">
-                    <strong><h1>Area riservata ADMIN</h1></strong>
+                <div class="col-md-10">
+                    <strong>
+                        <h1>Area riservata ADMIN</h1>
+                    </strong>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-1">
                     <a href="logout.php" class="btn btn-danger ">Logout</a>
                 </div>
             </div>
-            
+
             <br>
             <div class="row">
-                <div class="col-md-6 offset-md-3">
+                <div class="col-md-12">
 
                     <form action="" method="POST">
                         <div class="form-group">
@@ -46,7 +48,6 @@
                             <input type="submit" class="btn btn-success" name="oggi" value="Oggi">
                             <input type="submit" class="btn btn-success" name="totali" value="Totali">
                         </div>
-                        <br>
                         <div class="form-group">
                             <label><strong>Inserisci: </strong></label>
                         </div>
@@ -55,8 +56,9 @@
                             <input type="submit" class="btn btn-success" name="evento" value="Evento">
                             <input type="submit" class="btn btn-success" name="utente" value="Utente">
                         </div>
-                </div>
+                
                 </form>
+                </div>
             </div>
 
             <br>
@@ -157,7 +159,7 @@
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
                                                 <label for="inputNomeEvento">Nome Evento</label>
-                                                <input type="text" class="form-control" name="inputNomeEvento"id="inputNomeEvento" placeholder="Inserisci il nome evento" required="true">
+                                                <input type="text" class="form-control" name="inputNomeEvento" id="inputNomeEvento" placeholder="Inserisci il nome evento" required="true">
                                             </div>
                                             <div class="form-group col-md-3">
                                                 <label for="inputDataInizio">Data Inizio</label>
@@ -188,7 +190,7 @@
                                             <div class="form-group col-md-6">
                                                 <label for="inputLuogoEvento">Luogo Evento</label>
                                                 <input type="text" class="form-control" name="inputLuogoEvento" id="inputLuogoEvento" placeholder="Inserisci il luogo dell'Evento" required="true">
-                                        </div>
+                                            </div>
 
                                         </div>
                                         <div class="form-row">
@@ -205,11 +207,11 @@
                                     </form>
                                 </div>
 
-                                
+
                             <?php
-                            /**
-                            * FORM UTENTE
-                            */
+                                /**
+                                 * FORM UTENTE
+                                 */
                             } else if (isset($_POST['utente'])) {
                             ?> <div class="col-md-6 offset-md-3">
                                     <form action="insert-user.php" method="POST">
@@ -224,15 +226,15 @@
                                             </div>
                                         </div>
                                         <div class="form-row">
-                                        <div class="form-group col-md-5">
-                                            <label for="inputName">Nome</label>
-                                            <input type="text" class="form-control" id="inputName" placeholder="Inserisci il tuo nome completo" required="true">
-                                        </div>
-                                        <div class="form-group col-md-5">
-                                            <label for="inputEmail">Email</label>
-                                            <input type="email" class="form-control" id="inputEmail" placeholder="Inserisci la tua mail" required="true">
-                                        </div>
-                                        
+                                            <div class="form-group col-md-5">
+                                                <label for="inputName">Nome</label>
+                                                <input type="text" class="form-control" id="inputName" placeholder="Inserisci il tuo nome completo" required="true">
+                                            </div>
+                                            <div class="form-group col-md-5">
+                                                <label for="inputEmail">Email</label>
+                                                <input type="email" class="form-control" id="inputEmail" placeholder="Inserisci la tua mail" required="true">
+                                            </div>
+
                                             <div class="form-group col-md-2">
                                                 <label for="inputUtente">Tipo Utente</label>
                                                 <select id="inputUtente" class="form-control">
@@ -248,9 +250,9 @@
 
 
                             <?php
-                            /**
-                            * FORM ARGOMENTO
-                            */
+                                /**
+                                 * FORM ARGOMENTO
+                                 */
                             } else if (isset($_POST['argomento'])) {
 
                             ?>
